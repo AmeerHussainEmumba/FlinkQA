@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.lang.annotation.ElementType;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,15 +26,22 @@ public class lotionPage {
         List<WebElement> Elements = new ArrayList<>();
         ArrayList<Integer> selectedElements = new ArrayList<>();
         List<WebElement> elementPrices = new ArrayList<>();
+        List<WebElement> buttons = new ArrayList<>();
+        buttons= driver.findElements(By.xpath("//button[contains(.,'Add')]"));
         List<Integer> selectedElementPrices = new ArrayList<>();
         List<Integer> sortedList=new ArrayList<>();
         int selection1 = 99;
+        int selection2 = 98;
+        int priceOfSelection1;
+        int priceOfSelection2;
+        String Name1="null";
+        String Name2="null";
         if (decisionTemp < 19) {
             Elements = driver.findElements(By.xpath("//html/body//p[1][not(contains(.,'Services'))]"));
             for (int position = 0; position <= Elements.size() - 1; position++) {
                 if (Elements.get(position).getText().contains("Aloe") || Elements.get(position).getText().contains("aloe")) {
                     selectedElements.add(position);
-                } else {}
+                }
             }
             elementPrices = driver.findElements(By.xpath("//html/body//p[2]"));
             for (int counter = 0; counter <= selectedElements.size() - 1; counter++) {
@@ -42,41 +50,83 @@ public class lotionPage {
                 makeMatch.find();
                 selectedElementPrices.add(Integer.parseInt(makeMatch.group()));
             }
-           int temp=selectedElementPrices.indexOf((Collections.min(selectedElementPrices)));
-            selection1= selectedElements.get(temp);
+            int temp1=selectedElementPrices.indexOf((Collections.min(selectedElementPrices)));
+            priceOfSelection1=Collections.min(selectedElementPrices);
+            selection1= selectedElements.get(temp1);
+            Name1=Elements.get(selection1).getText();
+            buttons.get(selection1).click();
+            selectedElements.clear();
+            selectedElementPrices.clear();
 
+            //SecondChoice
+
+            for (int position = 0; position <= Elements.size() - 1; position++) {
+                if (Elements.get(position).getText().contains("Almond") || Elements.get(position).getText().contains("almond")) {
+                    selectedElements.add(position);
+                }
+            }
+            elementPrices = driver.findElements(By.xpath("//html/body//p[2]"));
+            for (int counter = 0; counter <= selectedElements.size() - 1; counter++) {
+                Pattern intsOnly = Pattern.compile("\\d+");
+                Matcher makeMatch = intsOnly.matcher(elementPrices.get(selectedElements.get(counter)).getText());
+                makeMatch.find();
+                selectedElementPrices.add(Integer.parseInt(makeMatch.group()));
+            }
+            int temp2=selectedElementPrices.indexOf((Collections.min(selectedElementPrices)));
+            priceOfSelection2=Collections.min(selectedElementPrices);
+            selection2= selectedElements.get(temp2);
+            Name2=Elements.get(selection2).getText();
+            buttons.get(selection2).click();
         } else { //sunscreen
             Elements = driver.findElements(By.xpath("//html/body//p[1][not(contains(.,'Services'))]"));
+            elementPrices = driver.findElements(By.xpath("//html/body//p[2]"));
 
             for (int counter = 0; counter <= Elements.size() - 1; counter++) {
                 if (Elements.get(counter).getText().contains("spf-30") || Elements.get(counter).getText().contains("SPF-30")) {
                     selectedElements.add(counter);
-                } else {}
+                }
             }
-            elementPrices = driver.findElements(By.xpath("//html/body//p[2]"));
             for (int counter = 0; counter <= selectedElements.size() - 1; counter++) {
                 Pattern intsOnly = Pattern.compile("\\d+");
                 Matcher makeMatch = intsOnly.matcher(elementPrices.get(selectedElements.get(counter)).getText());
                 makeMatch.find();
                 selectedElementPrices.add(Integer.parseInt(makeMatch.group()));
             }
-            int temp=selectedElementPrices.indexOf((Collections.min(selectedElementPrices)));
-            selection1= selectedElements.get(temp);
-        }
-        //Collections.min(selectedElementPrices);
-            System.out.println("number of selected element " + selectedElements.size());
-            System.out.println("number of selected elements according to prices " + selectedElementPrices.size());
-            for (int a = 0; a <= selectedElements.size() - 1; a++) {
-                System.out.println(selectedElements.get(a));
+            int temp1=selectedElementPrices.indexOf((Collections.min(selectedElementPrices)));
+            priceOfSelection1=Collections.min(selectedElementPrices);
+            selection1= selectedElements.get(temp1);
+            Name1=Elements.get(selection1).getText();
+            buttons.get(selection1).click();
+            selectedElements.clear();
+            selectedElementPrices.clear();
+
+            //SecondChoice
+
+            for (int position = 0; position <= Elements.size() - 1; position++) {
+                if (Elements.get(position).getText().contains("SPF-50") || Elements.get(position).getText().contains("spf-50")) {
+                    selectedElements.add(position);
+                }
             }
-            for (int a = 0; a <= selectedElementPrices.size() - 1; a++) {
-                System.out.println(selectedElementPrices.get(a));
+            for (int counter = 0; counter <= selectedElements.size() - 1; counter++) {
+                Pattern intsOnly = Pattern.compile("\\d+");
+                Matcher makeMatch = intsOnly.matcher(elementPrices.get(selectedElements.get(counter)).getText());
+                makeMatch.find();
+                selectedElementPrices.add(Integer.parseInt(makeMatch.group()));
             }
-            for (int a = 0; a <= sortedList.size() - 1; a++) {
-            System.out.println(sortedList.get(a));
+            int temp2=selectedElementPrices.indexOf((Collections.min(selectedElementPrices)));
+            priceOfSelection2=Collections.min(selectedElementPrices);
+            selection2= selectedElements.get(temp2);
+            Name2=Elements.get(selection2).getText();
+            buttons.get(selection2).click();
         }
-            System.out.println(Collections.min(selectedElementPrices));
-            System.out.println(selection1);
-            System.out.println("done");
+
+
+        System.out.println(priceOfSelection1);
+        System.out.println(Name1);
+        System.out.println(priceOfSelection2);
+        System.out.println(Name2);
+        System.out.println("done");
+
+
         }
     }
