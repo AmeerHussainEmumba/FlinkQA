@@ -1,5 +1,6 @@
 package Tests;
 
+import Pages.checkout;
 import Pages.lotionPage;
 import Pages.weatherShopperLandingPage;
 import baseTest.BaseTest;
@@ -13,6 +14,8 @@ public class assignmentTest extends BaseTest {
 @Test
     public void search() throws IOException, InterruptedException {
     lotionPage lontionpage = Homepage.searching();
-    lontionpage.makePurchase();
+    checkout check= lontionpage.makePurchase();
+    check.completePurchase();
+
 }
 }

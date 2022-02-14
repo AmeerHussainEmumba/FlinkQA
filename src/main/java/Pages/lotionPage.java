@@ -22,7 +22,7 @@ public class lotionPage {
         decisionTemp = temperature;
     }
 
-    public void makePurchase() {
+    public checkout makePurchase() {
         List<WebElement> Elements = new ArrayList<>();
         ArrayList<Integer> selectedElements = new ArrayList<>();
         List<WebElement> elementPrices = new ArrayList<>();
@@ -120,12 +120,16 @@ public class lotionPage {
             buttons.get(selection2).click();
         }
 
+        WebElement cart=driver.findElement(By.xpath("//button[contains(.,'Cart')]"));
+        cart.click();
+        return new checkout(driver,Name1,priceOfSelection1,Name2,priceOfSelection2);
 
-        System.out.println(priceOfSelection1);
-        System.out.println(Name1);
-        System.out.println(priceOfSelection2);
-        System.out.println(Name2);
-        System.out.println("done");
+
+//        System.out.println(priceOfSelection1);
+//        System.out.println(Name1);
+//        System.out.println(priceOfSelection2);
+//        System.out.println(Name2);
+//        System.out.println("done");
 
 
         }
