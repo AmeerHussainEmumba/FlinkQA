@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.openqa.selenium.Keys.ENTER;
-
 public class weatherShopperLandingPage {
     private WebDriver driver;
 
@@ -17,7 +15,7 @@ public class weatherShopperLandingPage {
         this.driver = driver;
     }
 
-    public lotionPage searching() throws IOException, InterruptedException {
+    public productChoicePage searching() throws IOException, InterruptedException {
         System.out.println("started");
         String tempText = driver.findElement(By.xpath("//*[@id='temperature']")).getText();
         WebElement buyMoisturizers = driver.findElement(By.xpath("//button[contains(.,'moisturizers')]"));
@@ -31,10 +29,10 @@ public class weatherShopperLandingPage {
 
         if (tempInt < 19) {
             buyMoisturizers.click();
-            return new lotionPage(driver,tempInt);
+            return new productChoicePage(driver,tempInt);
         } else if (tempInt > 34) {
             buySunscreen.click();
-            return new lotionPage(driver,tempInt);
+            return new productChoicePage(driver,tempInt);
         }
         else
         {

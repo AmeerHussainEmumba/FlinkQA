@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class lotionPage {
+public class productChoicePage {
     private WebDriver driver;
     private int decisionTemp;
 
-    public lotionPage(WebDriver driver, int temperature) {
+    public productChoicePage(WebDriver driver, int temperature) {
         this.driver = driver;
         decisionTemp = temperature;
     }
@@ -119,18 +119,8 @@ public class lotionPage {
             Name2=Elements.get(selection2).getText();
             buttons.get(selection2).click();
         }
-
         WebElement cart=driver.findElement(By.xpath("//button[contains(.,'Cart')]"));
         cart.click();
         return new checkout(driver,Name1,priceOfSelection1,Name2,priceOfSelection2);
-
-
-//        System.out.println(priceOfSelection1);
-//        System.out.println(Name1);
-//        System.out.println(priceOfSelection2);
-//        System.out.println(Name2);
-//        System.out.println("done");
-
-
         }
     }

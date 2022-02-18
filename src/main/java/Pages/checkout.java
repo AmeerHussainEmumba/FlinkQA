@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,7 +28,7 @@ public class checkout {
         this.priceOfSelection2=priceOfSelection2;
     }
 
-   public void completePurchase () throws InterruptedException {
+   public confirmationPage completePurchase () throws InterruptedException {
        String DisplayedName1=driver.findElement(By.xpath("//html/body/div[1]/div[2]/table/tbody/tr[1]/td[1]")).getText();
        String DisplayedName2=driver.findElement(By.xpath("//html/body/div[1]/div[2]/table/tbody/tr[2]/td[1]")).getText();
        WebElement button=driver.findElement(By.xpath("//button"));
@@ -41,10 +42,11 @@ public class checkout {
        String card_number="4242424242424242";
        String expiryDate="02/24";
        JavascriptExecutor js= (JavascriptExecutor) driver;
-       DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-       capabilities.setCapability("maxTypingFrequency",10);
-       //DisplayedName1==name1&&DisplayedName2==name2&&price1==priceOfSelection1&&price2==priceOfSelection2&&
-       if (totalPrice==(price1+price2))
+       Assert.assertEquals(name1,DisplayedName1);
+       Assert.assertEquals(name2,DisplayedName2);
+       Assert.assertEquals(price1,priceOfSelection1);
+       Assert.assertEquals(price2,priceOfSelection2);
+       Assert.assertEquals(totalPrice,price1 + price2);
        {
            button.click();
            Thread.sleep(4000);
@@ -63,12 +65,9 @@ public class checkout {
            zipCode.sendKeys("242");
            WebElement paymentButton = driver.findElement(By.xpath("//button[contains(.,'Pay INR')]"));
            paymentButton.click();
-
-       }
-       else
-       {
-           System.out.println("difference in price");
-
+           driver.switchTo().parentFrame();
+           Thread.sleep(5000);
+           return new confirmationPage(driver);
        }
    }
 }
