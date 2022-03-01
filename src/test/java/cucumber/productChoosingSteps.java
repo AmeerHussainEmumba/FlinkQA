@@ -21,7 +21,6 @@ public class productChoosingSteps {
 
     @Given("I navigate to the weatherShopperLandingPage")
     public void I_navigate_to_the_weatherShopperLandingPage() throws IOException, InterruptedException {  System.setProperty("webdriver.chrome.driver", "Resources/chromedriver");
-        System.setProperty("webdriver.chrome.driver", "Resources/chromedriver");
         driver = new ChromeDriver();
         driver.get("https://weathershopper.pythonanywhere.com/");
         Homepage = new weatherShopperLandingPage(driver);
